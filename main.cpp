@@ -4,6 +4,8 @@
 
 #include "analyzer.hpp"
 #include "reader.hpp"
+#include "url_reader.hpp"
+#include "file_reader.hpp"
 #include "dictionary.hpp"
 
 int main(int argc, char **argv) {
@@ -15,12 +17,25 @@ int main(int argc, char **argv) {
   Dictionary* negative_words = new Dictionary();
   Dictionary::loadDictionary(positive_words_file, *positive_words); 
   Dictionary::loadDictionary(negative_words_file, *negative_words);  
-  Reader reader;
-  std::vector<std::string> urls = reader.loadURLs(urls_file);
-  reader.readURLs(urls);
+#if 0
+  Reader* reader = new UrlReader(urls_file);
+  reader->loadPages();
 
-  for (auto& p : reader.getPages()) {
+  for (auto& p : reader->getPages()) {
     Analyzer anal(p, positive_words, negative_words);  
     anal.run();    
   }
+  delete reader;
+#endif
+
+  Reader* reader = new FileReader(urls_file);
+  reader->loadPages();
+
+  for (auto& p : reader->getPages()) {
+    Analyzer anal(p, positive_words, negative_words);  
+    anal.run();    
+  }
+  delete reader;
+
+
 }

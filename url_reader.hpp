@@ -2,17 +2,23 @@
 #define URL_READER_H_
 
 #include "page.hpp"
-#include "url_reader.hpp"
+#include "reader.hpp"
 
 #include <memory>
 #include <vector>
 
-class UrlReader : Reader {
+class UrlReader : public Reader {
 
 public:
-  std::vector<std::string> loadURLs(std::string& urls_file);
+  UrlReader(std::string& file_path): Reader(file_path) {
+  };
+
+  void loadPages(void) override;
 
   void readURLs(std::vector<std::string>& urls);  
+
+  virtual ~UrlReader() {
+  }
 };
  
 #endif    //  URL_READER_H_

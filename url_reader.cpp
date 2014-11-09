@@ -9,22 +9,10 @@
 #include <iostream>
 #include <fstream>
 
-
-std::vector<std::string> UrlReader::loadURLs(std::string& urls_file) {
-  std::ifstream urls_stream(urls_file);
-  std::vector<std::string> filenames;
-
-  if (urls_stream.is_open()) {
-    std::string filename;
-
-    while (getline(urls_stream, filename)) {
-      std::cout << filename << '\n';
-      filenames.emplace_back(filename);
-    };
-    urls_stream.close();  
-  };
-  return filenames;
-};
+void UrlReader::loadPages(void) {
+  std::vector<std::string> urls = loadURLs();
+  readURLs(urls);
+}
 
 void UrlReader::readURLs(std::vector<std::string>& urls) {
     curl_global_init(CURL_GLOBAL_ALL);

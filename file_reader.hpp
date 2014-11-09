@@ -2,15 +2,23 @@
 #define FILE_READER_H_
 
 #include "page.hpp"
+#include "reader.hpp"
 
 #include <memory>
 #include <vector>
 
-class FileReader : Reader {
+class FileReader : public Reader {
 public:
-  std::vector<std::string> loadFiless(std::string& urls_file);
+  FileReader(std::string& file_path): Reader(file_path) {
+  };
+  ~FileReader(void) {
+  };
+  virtual void loadPages(void);
 
-  void readFiles(std::vector<std::string>& urls);  
+private:
+  void readFromFiles(std::vector<std::string>& urls);  
+
+  void loadFile(std::string file_path, size_t i);
 };
  
 #endif    //  FILE_READER_H_

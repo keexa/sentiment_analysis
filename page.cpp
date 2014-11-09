@@ -120,6 +120,8 @@ void Page::parseHtml(void) {
   gumbo_destroy_output(&kGumboDefaultOptions, output);
 };
 
+
+
 void* Page::pull_one_url(void *params_in) {
   Page* page = (Page*)params_in;
   CURL *curl;
